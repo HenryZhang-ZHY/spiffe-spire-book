@@ -1,0 +1,96 @@
+name: Build and publish book
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: book-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  website:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install mdBook
+        run: |
+          curl -L https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          echo "$PWD" >> "$GITHUB_PATH"
+      - name: Build website
+        run: |
+          python scripts/build_site.py
+          mdbook build site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/book
+
+  pdf-epub:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Pandoc, Typst and CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          curl -L https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-1-amd64.deb -o pandoc.deb
+          sudo dpkg -i pandoc.deb
+          curl -L https://github.com/typst/typst/releases/download/v0.14.2/typst-x86_64-unknown-linux-musl.tar.xz | tar xJ
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
+      - name: Build PDF
+        run: python book/build_pdf.py
+      - name: Build EPUB
+        run: python book/build_epub.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book-pdf-epub
+          path: |
+            book/build/SPIFFE-SPIRE-Book-ZH.pdf
+            book/build/SPIFFE-SPIRE-Book-ZH.epub
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: [website, pdf-epub]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: book-pdf-epub
+          path: dist
+      - name: Publish release for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="build-$(date -u +%Y%m%d-%H%M%S)"
+          gh release create "$tag" dist/*.pdf dist/*.epub \
+            --repo "${{ github.repository }}" \
+            --title "自动构建 $(date -u +%Y-%m-%d\ %H:%M) UTC" \
+            --notes "由提交 ${{ github.sha }} 自动构建。"
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [website, pdf-epub]
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - id: deployment
+        uses: actions/deploy-pages@v4

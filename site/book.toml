@@ -1,0 +1,13 @@
+[book]
+title = "Solving the Bottom Turtle 中文版：SPIFFE/SPIRE 身份框架详解"
+description = "SPIFFE/SPIRE 官方书籍《Solving the Bottom Turtle》中文社区翻译"
+authors = ["SPIFFE/SPIRE Book Sprint 作者团队（原著，CC BY 4.0）", "中文社区翻译"]
+language = "zh"
+src = "src"
+
+[output.html]
+default-theme = "light"
+git-repository-url = "https://github.com/HenryZhang-ZHY/spiffe-spire-book"
+
+[output.html.search]
+limit-results = 20

@@ -1,0 +1,5 @@
+[tools]
+python = "3.12"
+pandoc = "latest"
+typst = "latest"
+mdbook = "latest"
