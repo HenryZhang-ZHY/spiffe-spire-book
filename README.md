@@ -14,8 +14,15 @@ Andres Vega、Michael Wardrop 所有，采用 [CC BY 4.0](https://creativecommon
 
 ## 下载与阅读
 
-- 在线阅读：见 Releases / GitHub Pages（构建后自动发布）
-- PDF / EPUB：每次推送到 `main` 分支后由 GitHub Actions 自动构建，见仓库 Releases 页面
+> 💡 [在线阅读](https://henryzhang-zhy.github.io/spiffe-spire-book/) ·
+> [下载 PDF](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.pdf) ·
+> [下载 EPUB](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.epub) ·
+> [英文原书官网](https://spiffe.io/book/) ·
+> [英文原书 PDF](https://spiffe.io/pdf/Solving-the-bottom-turtle-SPIFFE-SPIRE-Book.pdf)
+
+PDF / EPUB 由每次推送到 `main` 分支后的 GitHub Actions 自动构建并发布到
+[Releases](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest)，
+上面的下载链接始终指向最新构建。
 
 ## 仓库结构
 

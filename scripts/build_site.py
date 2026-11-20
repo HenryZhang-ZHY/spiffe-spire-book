@@ -38,6 +38,18 @@ CHAPTERS = [
 
 IMG_PATH_RE = re.compile(r"\]\(\.\./assets/")
 
+REPO_URL = "https://github.com/HenryZhang-ZHY/spiffe-spire-book"
+# Links shown only on the website homepage (not baked into the shared
+# manuscripts/ source, which also feeds the PDF/EPUB builds), mirroring
+# bojieli/ai-infra-book's website/index.md "tip line" of quick links.
+HOMEPAGE_TIP = (
+    f"> 💡 [下载 PDF]({REPO_URL}/releases/latest/download/SPIFFE-SPIRE-Book-ZH.pdf) · "
+    f"[下载 EPUB]({REPO_URL}/releases/latest/download/SPIFFE-SPIRE-Book-ZH.epub) · "
+    "[英文原书官网](https://spiffe.io/book/) · "
+    "[英文原书 PDF](https://spiffe.io/pdf/Solving-the-bottom-turtle-SPIFFE-SPIRE-Book.pdf) · "
+    f"[GitHub 仓库]({REPO_URL})"
+)
+
 
 def main() -> None:
     if SRC.exists():
@@ -55,6 +67,10 @@ def main() -> None:
             continue
         text = src_path.read_text(encoding="utf-8")
         text = IMG_PATH_RE.sub("](assets/", text)
+        if filename == "00-front-matter.md":
+            # Insert the quick-links tip right after the first heading.
+            lines = text.split("\n", 2)
+            text = lines[0] + "\n\n" + HOMEPAGE_TIP + "\n\n" + "\n".join(lines[1:]).lstrip("\n")
         (SRC / filename).write_text(text, encoding="utf-8")
         summary_lines.append(f"- [{title}]({filename})")
 
