@@ -1,5 +1,11 @@
 # Solving the Bottom Turtle（中文版）
 
+> [!TIP]
+> **下载与阅读**
+>
+> - **简体中文**: [PDF](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.pdf) · [EPUB](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.epub) · [在线阅读](https://henryzhang-zhy.github.io/spiffe-spire-book/)
+> - **英文原书**: [PDF](https://spiffe.io/pdf/Solving-the-bottom-turtle-SPIFFE-SPIRE-Book.pdf) · [官网](https://spiffe.io/book/)
+
 *SPIFFE/SPIRE：构建异构基础设施的统一身份信任*
 
 本仓库是 SPIFFE 官方书籍 [*Solving the Bottom Turtle — A SPIFFE Way to Establish
@@ -11,18 +17,6 @@ Trust in Your Infrastructure via Universal Identity*](https://spiffe.io/book/)
 Umair Khan、Max Lambrecht、Brandon Lum、Agustín Martínez Fayó、Eli Nesterov、
 Andres Vega、Michael Wardrop 所有，采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 许可发布；本中文翻译版同样以 CC BY 4.0 发布。详见 [`manuscripts/00-front-matter.md`](manuscripts/00-front-matter.md)。
-
-## 下载与阅读
-
-> 💡 [在线阅读](https://henryzhang-zhy.github.io/spiffe-spire-book/) ·
-> [下载 PDF](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.pdf) ·
-> [下载 EPUB](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest/download/SPIFFE-SPIRE-Book-ZH.epub) ·
-> [英文原书官网](https://spiffe.io/book/) ·
-> [英文原书 PDF](https://spiffe.io/pdf/Solving-the-bottom-turtle-SPIFFE-SPIRE-Book.pdf)
-
-PDF / EPUB 由每次推送到 `main` 分支后的 GitHub Actions 自动构建并发布到
-[Releases](https://github.com/HenryZhang-ZHY/spiffe-spire-book/releases/latest)，
-上面的下载链接始终指向最新构建。
 
 ## 仓库结构
 
